@@ -152,8 +152,8 @@ for key, value in file_dict.items():
     coriell = key
     tabix_coriell = f'{coriell}_{client}_Cardio_Pos_Control.vcf'
     run_vcf = value
-    tabix_header = Get_Header(f'{path}{tabix_coriell}')
-    tabix_df = pd.read_csv(f'{path}{tabix_coriell}', header=tabix_header, sep='\t')
+    tabix_header = Get_Header(f'{tabix_coriell}')
+    tabix_df = pd.read_csv(f'{tabix_coriell}', header=tabix_header, sep='\t')
     run_header = Get_Header(run_vcf)
     run_df = pd.read_csv(run_vcf, header=run_header, sep='\t')
     temp_df = run_df
