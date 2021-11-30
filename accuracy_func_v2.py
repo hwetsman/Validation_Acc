@@ -116,7 +116,7 @@ def Accuracy(coriell, tabix_df, run_df):
 time0 = time.time()
 client = "Lab"
 panel = 'Cardio'
-path = f'{client}/{panel}/'
+path = './'
 expected_replace_dict = {'0|1': 'HET', '1|0': 'HET', '1': 'HOM', '1|1': 'HOM',
                          '2|2': 'HOM2', '3|3': 'HOM3', '4|4': 'HOM4', '5|5': 'HOM5',
                          '0|2': 'HET2', '2|0': 'HET2', '0|3': 'HET3', '3|0': 'HET3',
@@ -152,8 +152,8 @@ for key, value in file_dict.items():
     coriell = key
     tabix_coriell = f'{coriell}_{client}_Cardio_Pos_Control.vcf'
     run_vcf = value
-    tabix_header = Get_Header(f'{tabix_coriell}')
-    tabix_df = pd.read_csv(f'{tabix_coriell}', header=tabix_header, sep='\t')
+    tabix_header = Get_Header(f'{path}{tabix_coriell}')
+    tabix_df = pd.read_csv(f'{path}{tabix_coriell}', header=tabix_header, sep='\t')
     run_header = Get_Header(run_vcf)
     run_df = pd.read_csv(run_vcf, header=run_header, sep='\t')
     temp_df = run_df
