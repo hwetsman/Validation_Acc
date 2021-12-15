@@ -113,6 +113,7 @@ def Accuracy(coriell, tabix_df, run_df):
     return call_tp, con_tp, fp, tn, fn, FN
 
 
+# main
 time0 = time.time()
 client = "Lab"
 panel = 'Cardio'
