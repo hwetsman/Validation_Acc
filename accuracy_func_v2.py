@@ -121,7 +121,7 @@ panel = 'Cardio'
 path = f'./{client}/{panel}/'
 
 
-def Make_File_Dict(path):
+def Make_File_Dict(client, panel):
     dict1 = {}
     files = os.listdir(f'./{client}/{panel}')
     pos_cont_files = [x for x in files if 'Pos_Control' in x]
