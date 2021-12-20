@@ -125,12 +125,15 @@ def Make_File_Dict(path):
     dict1 = {}
     files = os.listdir(f'./{client}/{panel}')
     pos_cont_files = [x for x in files if 'Pos_Control' in x]
-    print(files)
+    run_files = [x for x in files if 'Pos_Control' not in x]
+    print(run_files)
+    1/0
     print(pos_cont_files)
     for coriell_file in pos_cont_files:
         coriell = coriell_file.strip(f'{client}_{panel}_')
         coriell = coriell.strip('_Pos_Control.vcf')
-        print(coriell)
+        dict1[coriell] = coriell_file
+    print('\n', dict1)
     1/0
     return dict1
 
