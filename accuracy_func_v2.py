@@ -117,7 +117,7 @@ def Accuracy(coriell, tabix_df, run_df):
 time0 = time.time()
 client = "Lab"
 panel = 'Cardio'
-path = './'
+path = f'./{client}/{panel}/'
 expected_replace_dict = {'0|1': 'HET', '1|0': 'HET', '1': 'HOM', '1|1': 'HOM',
                          '2|2': 'HOM2', '3|3': 'HOM3', '4|4': 'HOM4', '5|5': 'HOM5',
                          '0|2': 'HET2', '2|0': 'HET2', '0|3': 'HET3', '3|0': 'HET3',
