@@ -132,12 +132,12 @@ def Make_File_Dict(client, panel):
         coriell = coriell_file.strip(f'{client}_{panel}_')
         coriell = coriell.strip('_Pos_Control.vcf')
         coriell_run_files = [x for x in run_files if coriell in x]
-        dict1[coriell] = (coriell_file, coriell_run_files[0])
+        print(coriell_run_files[0])
+        dict1[coriell] = coriell_run_files[0]
     print('\n', dict1)
     return dict1
 
 
-accur_file_dict = Make_File_Dict(path)
 expected_replace_dict = {'0|1': 'HET', '1|0': 'HET', '1': 'HOM', '1|1': 'HOM',
                          '2|2': 'HOM2', '3|3': 'HOM3', '4|4': 'HOM4', '5|5': 'HOM5',
                          '0|2': 'HET2', '2|0': 'HET2', '0|3': 'HET3', '3|0': 'HET3',
@@ -169,10 +169,13 @@ nuc_chroms = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
 c_call_tp = c_con_tp = c_fp = c_tn = c_fn = 0
 total_FN_df = pd.DataFrame()
 
+file_dict = Make_File_Dict(client, panel)
+
 for key, value in file_dict.items():
+    print(key, value)
     coriell = key
-    tabix_coriell = f'{coriell}_{client}_Cardio_Pos_Control.vcf'
-    run_vcf = value
+    tabix_coriell = f'{client}_{panel}_{coriell}_Pos_Control.vcf'
+    run_vcf = f'{path}{value}'
     tabix_header = Get_Header(f'{path}{tabix_coriell}')
     tabix_df = pd.read_csv(f'{path}{tabix_coriell}', header=tabix_header, sep='\t')
     run_header = Get_Header(run_vcf)
