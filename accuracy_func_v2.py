@@ -244,7 +244,7 @@ summary_df.loc['Concordant PPA:', 'Accuracy_Measure'] = f'{round(100*con_PPA,2)}
 summary_df.loc['Concordant PPV:', 'Accuracy_Measure'] = f'{round(100*con_PPV,2)}%'
 print()
 print('Writing last file for client')
-with pd.ExcelWriter(f'{path}{client}_{panel}_Summary_For_Accuracy.xlsx') as writer:
+with pd.ExcelWriter(f'{client}_{panel}_Summary_For_Accuracy.xlsx') as writer:
     duplicate_df.to_excel(writer, sheet_name='False_Negative_Run_Duplications', index=False)
     files_df.to_excel(writer, sheet_name='Files_in_Run')
     summary_df.to_excel(writer, sheet_name='Summary_Statistics')
