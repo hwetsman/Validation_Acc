@@ -122,6 +122,11 @@ path = f'./{client}/{panel}/'
 
 
 def Make_File_Dict(path):
+    dict1 = {}
+    files = os.listdir(f'./{client}/{panel}')
+    print(files)
+    1/0
+    return dict1
 
 
 accur_file_dict = Make_File_Dict(path)
