@@ -12,6 +12,7 @@ their vcfs as tupules as shown below.
 
 @author: howardwetsman
 """
+import os
 import time
 import pandas as pd
 pd.options.mode.chained_assignment = None  # default='warn'
@@ -118,6 +119,12 @@ time0 = time.time()
 client = "Lab"
 panel = 'Cardio'
 path = f'./{client}/{panel}/'
+
+
+def Make_File_Dict(path):
+
+
+accur_file_dict = Make_File_Dict(path)
 expected_replace_dict = {'0|1': 'HET', '1|0': 'HET', '1': 'HOM', '1|1': 'HOM',
                          '2|2': 'HOM2', '3|3': 'HOM3', '4|4': 'HOM4', '5|5': 'HOM5',
                          '0|2': 'HET2', '2|0': 'HET2', '0|3': 'HET3', '3|0': 'HET3',
