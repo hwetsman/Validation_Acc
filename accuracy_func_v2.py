@@ -187,9 +187,34 @@ total_FN_df = pd.DataFrame()
 # eventual data dict
 # {'sample':{'control':control_vcf},{'accuracy1':accuracy1_vcf},{'accuracy2':accuracy2_vcf}    }
 
+
+def Make_Sample_Dict(sample_files):
+    sample_dict = {}
+    pos_cont = [x for x in sample_files if 'Pos_Control' in x]
+    sample_dict['control'] = pos_cont
+    run_files = [x for x in sample_files if 'Pos_Control' not in x]
+    for file in run_files:
+        files_dict = {}
+        datetime = file.split('.')[0].split(f'{client}_{panel}_')[1].split('_', 1)[1]
+        date, hour = datetime.split('_')
+        date = pd.to_datetime(date, format='%Y-%m-%d')
+        hour = int(hour)
+        datetime_dict = {}
+        datetime_dict['date'] = date
+        datetime_dict['hour'] = hour
+        files_dict[file] = datetime_dict
+        print('\n', file_dict)
+    1/0
+    # iterate run files and order them by datetime
+    print(run_files)
+
+
 samples = Get_Samples(client, panel)
 for sample in samples:
-    Get_Sample_Files(sample, client, panel)
+    sample_files = Get_Sample_Files(sample, client, panel)
+    print('\n', sample_files)
+    1/0
+    sample_dict = Make_Sample_Dict(sample_files)
 # once have sample files go through them to create sample dict
 
 
