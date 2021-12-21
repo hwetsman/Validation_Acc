@@ -190,6 +190,9 @@ total_FN_df = pd.DataFrame()
 samples = Get_Samples(client, panel)
 for sample in samples:
     Get_Sample_Files(sample, client, panel)
+# once have sample files go through them to create sample dict
+
+
 file_dict = Make_File_Dict(client, panel)
 
 
