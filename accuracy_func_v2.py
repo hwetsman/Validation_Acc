@@ -129,6 +129,13 @@ def Get_Samples(client, panel):
     return samples
 
 
+def Get_Sample_Files(sample, client, panel):
+    files = os.listdir(f'./{client}/{panel}')
+    sample_files = [x for x in files if sample in x]
+    print(sample_files)
+    1/0
+
+
 def Make_File_Dict(client, panel):
     dict1 = {}
     files = os.listdir(f'./{client}/{panel}')
@@ -179,9 +186,11 @@ c_call_tp = c_con_tp = c_fp = c_tn = c_fn = 0
 total_FN_df = pd.DataFrame()
 
 # eventual data dict
-# {sample:{'control':control_vcf},{'accuracy1':accuracy1_vcf},{'accuracy2':accuracy2_vcf}    }
+# {'sample':{'control':control_vcf},{'accuracy1':accuracy1_vcf},{'accuracy2':accuracy2_vcf}    }
 
-
+samples = Get_Samples(client, panel)
+for sample in samples:
+    Get_Sample_Files(sample, client, panel)
 file_dict = Make_File_Dict(client, panel)
 
 
