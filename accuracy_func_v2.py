@@ -194,11 +194,27 @@ def Get_Date_Run(file):
     return date, run
 
 
+def Get_Accuracy1(sample_df):
+    if sample_df.shape[0] == 1:
+        return sample_df.index[0]
+    else:
+        df = sample_df[sample_df.date == sample_df.date.min()]
+        if df.shape[0] == 1:
+            file = df.index[0]
+            # sample_dict['accuracy1'] = file
+            print('\n', file)
+        else:
+            df1 = df[df.run == sd.run.min()]
+            file = df1.index[0]
+            # sample_dict['accuracy1'] = file
+    return file
+
+
 def Make_Sample_Dict(sample_files):
     sample_dict = {}
     sample_df = pd.DataFrame()
     pos_cont = [x for x in sample_files if 'Pos_Control' in x]
-    sample_dict['control'] = pos_cont
+    sample_dict['control'] = pos_cont[0]
     run_files = [x for x in sample_files if 'Pos_Control' not in x]
     for file in run_files:
         print(file)
@@ -213,19 +229,11 @@ def Make_Sample_Dict(sample_files):
 
         print('\n', sample_df)
     # get accuracy1
-    if sample_df.shape[0] == 1:
-        sample_dict['accuracy1'] = sample_df.index[0]
-    else:
-        df = sample_df[sample_df.date == sample_df.date.min()]
-        if df.shape[0] == 1:
-            file = df.index[0]
-            sample_dict['accuracy1'] = file
-            print('\n', file)
-        else:
-            df1 = df[df.run == sd.run.min()]
-            file = df1.index[0]
-            sample_dict['accuracy1'] = file
+    accuracy1 = Get_Accuracy1(sample_df)
+    sample_dict['accuracy1'] = accuracy1
+    print(sample_dict)
     1/0
+
     # iterate run files and order them by datetime
     print(run_files)
 
