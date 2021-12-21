@@ -134,10 +134,7 @@ def Make_File_Dict(client, panel):
     files = os.listdir(f'./{client}/{panel}')
     pos_cont_files = [x for x in files if 'Pos_Control' in x]
     samples = Get_Samples(client, panel)
-    print(samples)
-    1/0
     print(pos_cont_files)
-    1/0
     run_files = [x for x in files if 'Pos_Control' not in x]
     print(run_files)
     for coriell_file in pos_cont_files:
@@ -180,6 +177,10 @@ nuc_chroms = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
               '21', '22', 'X', 'Y']
 c_call_tp = c_con_tp = c_fp = c_tn = c_fn = 0
 total_FN_df = pd.DataFrame()
+
+# eventual data dict
+# {sample:{'control':control_vcf},{'accuracy1':accuracy1_vcf},{'accuracy2':accuracy2_vcf}    }
+
 
 file_dict = Make_File_Dict(client, panel)
 
