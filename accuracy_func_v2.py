@@ -102,7 +102,7 @@ def Accuracy(coriell, tabix_df, run_df):
                    15: f'Concordant PPA: {round(100*con_PPA,2)}%',
                    16: f'Concordant PPV: {round(100*con_PPV,2)}%'}
     TOC_df = pd.DataFrame.from_dict(toc_content, orient='index')
-    with pd.ExcelWriter(f'{path}{coriell}_for_Validation.xlsx') as writer:
+    with pd.ExcelWriter(f'{coriell}_for_Validation.xlsx') as writer:
         TOC_df.to_excel(writer, sheet_name='Summary - How_to_use_this_file', index=False)
         call_TP.to_excel(writer, sheet_name='Call_True_Positives', index=False)
         con_TP.to_excel(writer, sheet_name='Concordant_True_Positives', index=False)
@@ -132,8 +132,7 @@ def Get_Samples(client, panel):
 def Get_Sample_Files(sample, client, panel):
     files = os.listdir(f'./{client}/{panel}')
     sample_files = [x for x in files if sample in x]
-    print(sample_files)
-    1/0
+    return sample_files
 
 
 def Make_File_Dict(client, panel):
