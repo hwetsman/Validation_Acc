@@ -210,6 +210,21 @@ def Get_Accuracy1(sample_df):
     return file
 
 
+def Get_Precision(sample_df, accuracy1):
+    sample_df.drop(accuracy1, inplace=True, axis=0)
+    print(sample_df)
+    if sample_df.shape[0] == 1:
+        return sample_df.index[0]
+    else:
+        df = sample_df[sample_df.date == sample_df.date.min()]
+        if df.shape[0] == 1:
+            return df.index[0]
+
+        else:
+            df1 = df[df.run == sd.run.min()]
+            return df1.index[0]
+
+
 def Make_Sample_Dict(sample_files):
     sample_dict = {}
     sample_df = pd.DataFrame()
@@ -231,8 +246,9 @@ def Make_Sample_Dict(sample_files):
     # get accuracy1
     accuracy1 = Get_Accuracy1(sample_df)
     sample_dict['accuracy1'] = accuracy1
+    precision = Get_Precision(sample_df, accuracy1)
+    sample_dict['precision'] = precision
     print(sample_dict)
-    1/0
 
     # iterate run files and order them by datetime
     print(run_files)
