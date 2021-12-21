@@ -196,12 +196,12 @@ def Make_Sample_Dict(sample_files):
     for file in run_files:
         files_dict = {}
         datetime = file.split('.')[0].split(f'{client}_{panel}_')[1].split('_', 1)[1]
-        date, hour = datetime.split('_')
+        date, run = datetime.split('_')
         date = pd.to_datetime(date, format='%Y-%m-%d')
-        hour = int(hour)
+        run = int(hour)
         datetime_dict = {}
         datetime_dict['date'] = date
-        datetime_dict['hour'] = hour
+        datetime_dict['run'] = run
         files_dict[file] = datetime_dict
         print('\n', file_dict)
     1/0
