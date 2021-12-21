@@ -121,13 +121,21 @@ panel = 'Cardio'
 path = f'./{client}/{panel}/'
 
 
+def Get_Controls(client, panel):
+    files = os.listdir(f'./{client}/{panel}')
+    pos_cont_files = [x for x in files if 'Pos_Control' in x]
+    return pos_cont_files
+
+
 def Make_File_Dict(client, panel):
     dict1 = {}
     files = os.listdir(f'./{client}/{panel}')
-    pos_cont_files = [x for x in files if 'Pos_Control' in x]
+    # pos_cont_files = [x for x in files if 'Pos_Control' in x]
+    pos_cont_files = Get_Controls(client, panel)
+    print(pos_cont_files)
+    1/0
     run_files = [x for x in files if 'Pos_Control' not in x]
     print(run_files)
-    print(pos_cont_files)
     for coriell_file in pos_cont_files:
         coriell = coriell_file.strip(f'{client}_{panel}_')
         coriell = coriell.strip('_Pos_Control.vcf')
@@ -170,6 +178,7 @@ c_call_tp = c_con_tp = c_fp = c_tn = c_fn = 0
 total_FN_df = pd.DataFrame()
 
 file_dict = Make_File_Dict(client, panel)
+
 
 for key, value in file_dict.items():
     print(key, value)
