@@ -188,22 +188,43 @@ total_FN_df = pd.DataFrame()
 # {'sample':{'control':control_vcf},{'accuracy1':accuracy1_vcf},{'accuracy2':accuracy2_vcf}    }
 
 
+def Get_Date_Run(file):
+    datetime = file.split('.')[0].split(f'{client}_{panel}_')[1].split('_', 1)[1]
+    date, run = datetime.split('_')
+    return date, run
+
+
 def Make_Sample_Dict(sample_files):
     sample_dict = {}
+    sample_df = pd.DataFrame()
     pos_cont = [x for x in sample_files if 'Pos_Control' in x]
     sample_dict['control'] = pos_cont
     run_files = [x for x in sample_files if 'Pos_Control' not in x]
     for file in run_files:
+        print(file)
         files_dict = {}
-        datetime = file.split('.')[0].split(f'{client}_{panel}_')[1].split('_', 1)[1]
-        date, run = datetime.split('_')
+        date, run = Get_Date_Run(file)
         date = pd.to_datetime(date, format='%Y-%m-%d')
-        run = int(hour)
-        datetime_dict = {}
-        datetime_dict['date'] = date
-        datetime_dict['run'] = run
-        files_dict[file] = datetime_dict
-        print('\n', file_dict)
+        print(date)
+        run = int(run)
+        print(run)
+        sample_df.loc[file, 'date'] = date
+        sample_df.loc[file, 'run'] = run
+
+        print('\n', sample_df)
+    # get accuracy1
+    if sample_df.shape[0] == 1:
+        sample_dict['accuracy1'] = sample_df.index[0]
+    else:
+        df = sample_df[sample_df.date == sample_df.date.min()]
+        if df.shape[0] == 1:
+            file = df.index[0]
+            sample_dict['accuracy1'] = file
+            print('\n', file)
+        else:
+            df1 = df[df.run == sd.run.min()]
+            file = df1.index[0]
+            sample_dict['accuracy1'] = file
     1/0
     # iterate run files and order them by datetime
     print(run_files)
@@ -213,7 +234,7 @@ samples = Get_Samples(client, panel)
 for sample in samples:
     sample_files = Get_Sample_Files(sample, client, panel)
     print('\n', sample_files)
-    1/0
+
     sample_dict = Make_Sample_Dict(sample_files)
 # once have sample files go through them to create sample dict
 
