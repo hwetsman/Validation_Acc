@@ -121,17 +121,21 @@ panel = 'Cardio'
 path = f'./{client}/{panel}/'
 
 
-def Get_Controls(client, panel):
+def Get_Samples(client, panel):
     files = os.listdir(f'./{client}/{panel}')
     pos_cont_files = [x for x in files if 'Pos_Control' in x]
-    return pos_cont_files
+    samples = [x.strip('_Pos_Control.vcf') for x in pos_cont_files]
+    samples = [x.strip(f'{client}_{panel}_') for x in samples]
+    return samples
 
 
 def Make_File_Dict(client, panel):
     dict1 = {}
     files = os.listdir(f'./{client}/{panel}')
-    # pos_cont_files = [x for x in files if 'Pos_Control' in x]
-    pos_cont_files = Get_Controls(client, panel)
+    pos_cont_files = [x for x in files if 'Pos_Control' in x]
+    samples = Get_Samples(client, panel)
+    print(samples)
+    1/0
     print(pos_cont_files)
     1/0
     run_files = [x for x in files if 'Pos_Control' not in x]
