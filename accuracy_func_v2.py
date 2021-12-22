@@ -259,6 +259,11 @@ def Make_Sample_Dict(sample_files):
 ###############
 # define list of samples
 samples = Get_Samples(client, panel)
+print('This dataset contains the following samples:')
+for sample in samples:
+    print(sample)
+print()
+1/0
 # iterate list of smaples and create sample dicts
 for sample in samples:
     sample_files = Get_Sample_Files(sample, client, panel)
