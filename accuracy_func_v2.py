@@ -173,10 +173,10 @@ found_replace_dict = {'0/1': 'HET', '1/0': 'HET', '1': 'HOM', '1/1': 'HOM',
                       '2/5': 'CH25', '5/2': 'CH25', '3/4': 'CH34', '4/3': 'CH34',
                       '3/5': 'CH35', '5/3': 'CH35', '4/5': 'CH45', '5/4': 'CH45',
                       '0': 'WT', '0/0': 'WT'}
-file_dict = {'HG03706': 'HG03706_Accuracy_1_2021-06-15_17.vcf',
-             'HG02476': 'HG02476_Accuracy_1_2021-06-15_17.vcf',
-             'NA19652': 'NA19652_Accuracy_1_2021-06-15_17.vcf',
-             'HG01941': 'HG01941_Accuracy_1_2021-06-15_17.vcf'}
+# file_dict = {'HG03706': 'HG03706_Accuracy_1_2021-06-15_17.vcf',
+#              'HG02476': 'HG02476_Accuracy_1_2021-06-15_17.vcf',
+#              'NA19652': 'NA19652_Accuracy_1_2021-06-15_17.vcf',
+#              'HG01941': 'HG01941_Accuracy_1_2021-06-15_17.vcf'}
 
 nuc_chroms = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
               '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
@@ -254,16 +254,21 @@ def Make_Sample_Dict(sample_files):
     print(run_files)
 
 
+###############
+#Program Start#
+###############
+# define list of samples
 samples = Get_Samples(client, panel)
+# iterate list of smaples and create sample dicts
 for sample in samples:
     sample_files = Get_Sample_Files(sample, client, panel)
     print('\n', sample_files)
-
+    # once have sample files go through them to create sample dict
     sample_dict = Make_Sample_Dict(sample_files)
-# once have sample files go through them to create sample dict
 
 
 file_dict = Make_File_Dict(client, panel)
+print('\n', file_dict)
 
 
 for key, value in file_dict.items():
