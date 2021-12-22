@@ -23,8 +23,8 @@ def Get_Header(file):
         lines = f.readlines()
         count = 0
         for i in range(len(lines)):
-            if '##' in lines[i]:
-                count = count+1
+            if '##' in lines[i]
+            count = count+1
     return count
 
 
@@ -271,14 +271,21 @@ for sample in samples:
     print(sample_dict)
     control = sample_dict.get('control')
     control_header = Get_Header(f'{path}{control}')
+    print(control_header)
     control_df = pd.read_csv(f'{path}{control}', header=control_header, sep='\t')
+    print(control_df)
+    accuracy1 = sample_dict.get('accuracy1')
+    print(accuracy1)
     accuracy_header = Get_Header(f'{path}{accuracy1}')
-    accuracy_df = pd.read_csv(f'{path}{control}', header=accuracy_header, sep='\t')
+    print(accuracy_header)
+    accuracy_df = pd.read_csv(f'{path}{control}', header=2, sep='\t')
+    print(accuracy_df)
     temp_df = accuracy_df
     temp_df['SAMPLE'] = sample
-    temp_df = temp_df.rename(columns={coriell: 'EXPECTED'})
+    temp_df = temp_df.rename(columns={sample: 'EXPECTED'})
     print(temp_df)
-    1/0
+    call_tp, con_tp, fp, tn, fn, temp_df = Accuracy(sample, control_df, accuracy_df)
+
 # current inputs
 # file_dict = Make_File_Dict(client, panel)
 # print('\n', file_dict)
@@ -299,12 +306,12 @@ for sample in samples:
 #     #create df of accuracy1
 #     run_header = Get_Header(run_vcf)
 #     run_df = pd.read_csv(run_vcf, header=run_header, sep='\t')
-    temp_df = run_df
-    temp_df['SAMPLE'] = coriell
-    temp_df = temp_df.rename(columns={coriell: 'EXPECTED'})
+    # temp_df = run_df
+    # temp_df['SAMPLE'] = coriell
+    # temp_df = temp_df.rename(columns={coriell: 'EXPECTED'})
     # Steve_df = Steve_df.append(temp_df)
 
-    call_tp, con_tp, fp, tn, fn, temp_df = Accuracy(coriell, tabix_df, run_df)
+    # call_tp, con_tp, fp, tn, fn, temp_df = Accuracy(coriell, tabix_df, run_df)
 
     total_FN_df = total_FN_df.append(temp_df)
     c_call_tp = c_call_tp + call_tp
