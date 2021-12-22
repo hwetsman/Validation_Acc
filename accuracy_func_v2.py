@@ -242,10 +242,9 @@ def Make_Sample_Dict(sample_files):
     precision = Get_Precision(sample_df, accuracy1)
     sample_dict['precision'] = precision
     print(f'\t\tAssigning {precision} as precision')
-    print(sample_dict)
-
-    # iterate run files and order them by datetime
-    print(run_files)
+    return sample_dict
+    # # iterate run files and order them by datetime
+    # print(run_files)
 
 
 ###############
@@ -261,28 +260,45 @@ print()
 # iterate list of smaples and create sample dicts
 print('I will work through the samples. Collating sample files...')
 for sample in samples:
-    print(f'Getting {sample}...')
+    print(f'\nGetting {sample}...')
     sample_files = Get_Sample_Files(sample, client, panel)
     print(f'\tThere are {len(sample_files)} files associated with {sample}...')
     for file in sample_files:
         print('\t\t', file)
     # once have sample files go through them to create sample dict
     sample_dict = Make_Sample_Dict(sample_files)
-
-
-file_dict = Make_File_Dict(client, panel)
-print('\n', file_dict)
-
-
-for key, value in file_dict.items():
-    print(key, value)
-    coriell = key
-    tabix_coriell = f'{client}_{panel}_{coriell}_Pos_Control.vcf'
-    run_vcf = f'{path}{value}'
-    tabix_header = Get_Header(f'{path}{tabix_coriell}')
-    tabix_df = pd.read_csv(f'{path}{tabix_coriell}', header=tabix_header, sep='\t')
-    run_header = Get_Header(run_vcf)
-    run_df = pd.read_csv(run_vcf, header=run_header, sep='\t')
+    print(f'The dictionary of files is prepared for {sample}.')
+    print(sample_dict)
+    control = sample_dict.get('control')
+    control_header = Get_Header(f'{path}{control}')
+    control_df = pd.read_csv(f'{path}{control}', header=control_header, sep='\t')
+    accuracy_header = Get_Header(f'{path}{accuracy1}')
+    accuracy_df = pd.read_csv(f'{path}{control}', header=accuracy_header, sep='\t')
+    temp_df = accuracy_df
+    temp_df['SAMPLE'] = sample
+    temp_df = temp_df.rename(columns={coriell: 'EXPECTED'})
+    print(temp_df)
+    1/0
+# current inputs
+# file_dict = Make_File_Dict(client, panel)
+# print('\n', file_dict)
+#
+# #iterate through file_dict
+# for key, value in file_dict.items():
+#     #key is sample_name and value is accuracy1
+#     print(key, value)
+#     coriell = key
+#     #get positive control file
+#     tabix_coriell = f'{client}_{panel}_{coriell}_Pos_Control.vcf'
+#     #get accuracy1
+#     run_vcf = f'{path}{value}'
+#     #get head of pos control vcf
+#     tabix_header = Get_Header(f'{path}{tabix_coriell}')
+#     #create df of pos_control
+#     tabix_df = pd.read_csv(f'{path}{tabix_coriell}', header=tabix_header, sep='\t')
+#     #create df of accuracy1
+#     run_header = Get_Header(run_vcf)
+#     run_df = pd.read_csv(run_vcf, header=run_header, sep='\t')
     temp_df = run_df
     temp_df['SAMPLE'] = coriell
     temp_df = temp_df.rename(columns={coriell: 'EXPECTED'})
