@@ -201,53 +201,47 @@ def Get_Accuracy1(sample_df):
         df = sample_df[sample_df.date == sample_df.date.min()]
         if df.shape[0] == 1:
             file = df.index[0]
-            # sample_dict['accuracy1'] = file
-            print('\n', file)
         else:
             df1 = df[df.run == sd.run.min()]
             file = df1.index[0]
-            # sample_dict['accuracy1'] = file
     return file
 
 
 def Get_Precision(sample_df, accuracy1):
     sample_df.drop(accuracy1, inplace=True, axis=0)
-    print(sample_df)
     if sample_df.shape[0] == 1:
         return sample_df.index[0]
     else:
         df = sample_df[sample_df.date == sample_df.date.min()]
         if df.shape[0] == 1:
             return df.index[0]
-
         else:
             df1 = df[df.run == sd.run.min()]
             return df1.index[0]
 
 
 def Make_Sample_Dict(sample_files):
+    print('\tAssigning files...')
     sample_dict = {}
     sample_df = pd.DataFrame()
     pos_cont = [x for x in sample_files if 'Pos_Control' in x]
     sample_dict['control'] = pos_cont[0]
+    print(f'\t\tAssigning {pos_cont[0]} as positive control')
     run_files = [x for x in sample_files if 'Pos_Control' not in x]
     for file in run_files:
-        print(file)
         files_dict = {}
         date, run = Get_Date_Run(file)
         date = pd.to_datetime(date, format='%Y-%m-%d')
-        print(date)
         run = int(run)
-        print(run)
         sample_df.loc[file, 'date'] = date
         sample_df.loc[file, 'run'] = run
-
-        print('\n', sample_df)
     # get accuracy1
     accuracy1 = Get_Accuracy1(sample_df)
+    print(f'\t\tAssigning {accuracy1} as accuracy1')
     sample_dict['accuracy1'] = accuracy1
     precision = Get_Precision(sample_df, accuracy1)
     sample_dict['precision'] = precision
+    print(f'\t\tAssigning {precision} as precision')
     print(sample_dict)
 
     # iterate run files and order them by datetime
@@ -263,11 +257,15 @@ print('This dataset contains the following samples:')
 for sample in samples:
     print(sample)
 print()
-1/0
+
 # iterate list of smaples and create sample dicts
+print('I will work through the samples. Collating sample files...')
 for sample in samples:
+    print(f'Getting {sample}...')
     sample_files = Get_Sample_Files(sample, client, panel)
-    print('\n', sample_files)
+    print(f'\tThere are {len(sample_files)} files associated with {sample}...')
+    for file in sample_files:
+        print('\t\t', file)
     # once have sample files go through them to create sample dict
     sample_dict = Make_Sample_Dict(sample_files)
 
