@@ -149,11 +149,7 @@ def Make_File_Dict(client, panel):
     return dict1
 
 
-# main
-time0 = time.time()
-client = "Lab"
-panel = 'Cardio'
-path = f'./{client}/{panel}/'
+
 
 
 expected_replace_dict = {'0|1': 'HET', '1|0': 'HET', '1': 'HOM', '1|1': 'HOM',
@@ -253,6 +249,10 @@ def Make_Sample_Dict(sample_files):
 ###############
 #Program Start#
 ###############
+time0 = time.time()
+client = "Lab"
+panel = 'Cardio'
+path = f'./{client}/{panel}/'
 # define list of samples
 samples = Get_Samples(client, panel)
 print('This dataset contains the following samples:')
