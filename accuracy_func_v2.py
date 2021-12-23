@@ -274,15 +274,21 @@ for sample in samples:
     print(sample_dict)
     control = sample_dict.get('control')
     control_header = Get_Header(f'{path}{control}')
-    print(control_header)
+    print('control header is ',control_header)
     control_df = pd.read_csv(f'{path}{control}', header=control_header, sep='\t')
     print(control_df)
+    
     accuracy1 = sample_dict.get('accuracy1')
-    print(accuracy1)
+    print('accuracy file:',accuracy1)
     accuracy_header = Get_Header(f'{path}{accuracy1}')
-    print(accuracy_header)
-    accuracy_df = pd.read_csv(f'{path}{control}', header=2, sep='\t')
+    print('accuracy header:',accuracy_header)
+    accuracy_df = pd.read_csv(f'{path}{accuracy1}', header=accuracy_header, sep='\t')
     print(accuracy_df)
+    
+    
+    
+    
+    
     temp_df = accuracy_df
     temp_df['SAMPLE'] = sample
     temp_df = temp_df.rename(columns={sample: 'EXPECTED'})
