@@ -284,11 +284,6 @@ for sample in samples:
     print('accuracy header:',accuracy_header)
     accuracy_df = pd.read_csv(f'{path}{accuracy1}', header=accuracy_header, sep='\t')
     print(accuracy_df)
-    
-    
-    
-    
-    
     temp_df = accuracy_df
     temp_df['SAMPLE'] = sample
     temp_df = temp_df.rename(columns={sample: 'EXPECTED'})
@@ -365,8 +360,14 @@ duplicate_df['POS'] = duplicate_df['POS'].astype(int)
 duplicate_df['POS'] = duplicate_df['POS'].astype(str)
 
 
+
+#stops here - not sure what to do with summary output - may be
+# as simple as recreating file_dict with accuuracy samples and creating summary as it.
 files_df = pd.DataFrame.from_dict(file_dict, orient='index', columns=['File'])
+#files_df = pd.DataFrame.from_dict(file_dict, orient='index', columns=['File'])
 summary_df = pd.DataFrame()
+print(summary_df)
+1/0
 print('For run: ')
 summary_df.loc['True Negative:', 'Accuracy_Measure'] = c_tn
 summary_df.loc['False Negative:', 'Accuracy_Measure'] = c_fn
