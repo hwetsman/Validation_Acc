@@ -23,8 +23,8 @@ def Get_Header(file):
         lines = f.readlines()
         count = 0
         for i in range(len(lines)):
-            if '##' in lines[i]
-            count = count+1
+            if '##' in lines[i]:
+                count = count+1
     return count
 
 
@@ -114,11 +114,7 @@ def Accuracy(coriell, tabix_df, run_df):
     return call_tp, con_tp, fp, tn, fn, FN
 
 
-# main
-time0 = time.time()
-client = "Lab"
-panel = 'Cardio'
-path = f'./{client}/{panel}/'
+
 
 
 def Get_Samples(client, panel):
@@ -151,6 +147,13 @@ def Make_File_Dict(client, panel):
         dict1[coriell] = coriell_run_files[0]
     print('\n', dict1)
     return dict1
+
+
+# main
+time0 = time.time()
+client = "Lab"
+panel = 'Cardio'
+path = f'./{client}/{panel}/'
 
 
 expected_replace_dict = {'0|1': 'HET', '1|0': 'HET', '1': 'HOM', '1|1': 'HOM',
