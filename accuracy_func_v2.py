@@ -12,6 +12,11 @@ their vcfs as tupules as shown below.
 
 @author: howardwetsman
 """
+
+# to do:
+# files_df fails at line 366
+
+
 import os
 import time
 import pandas as pd
@@ -114,9 +119,6 @@ def Accuracy(coriell, tabix_df, run_df):
     return call_tp, con_tp, fp, tn, fn, FN
 
 
-
-
-
 def Get_Samples(client, panel):
     files = os.listdir(f'./{client}/{panel}')
     pos_cont_files = [x for x in files if 'Pos_Control' in x]
@@ -147,9 +149,6 @@ def Make_File_Dict(client, panel):
         dict1[coriell] = coriell_run_files[0]
     print('\n', dict1)
     return dict1
-
-
-
 
 
 expected_replace_dict = {'0|1': 'HET', '1|0': 'HET', '1': 'HOM', '1|1': 'HOM',
@@ -274,14 +273,14 @@ for sample in samples:
     print(sample_dict)
     control = sample_dict.get('control')
     control_header = Get_Header(f'{path}{control}')
-    print('control header is ',control_header)
+    print('control header is ', control_header)
     control_df = pd.read_csv(f'{path}{control}', header=control_header, sep='\t')
     print(control_df)
-    
+
     accuracy1 = sample_dict.get('accuracy1')
-    print('accuracy file:',accuracy1)
+    print('accuracy file:', accuracy1)
     accuracy_header = Get_Header(f'{path}{accuracy1}')
-    print('accuracy header:',accuracy_header)
+    print('accuracy header:', accuracy_header)
     accuracy_df = pd.read_csv(f'{path}{accuracy1}', header=accuracy_header, sep='\t')
     print(accuracy_df)
     temp_df = accuracy_df
@@ -360,8 +359,7 @@ duplicate_df['POS'] = duplicate_df['POS'].astype(int)
 duplicate_df['POS'] = duplicate_df['POS'].astype(str)
 
 
-
-#stops here - not sure what to do with summary output - may be
+# stops here - not sure what to do with summary output - may be
 # as simple as recreating file_dict with accuuracy samples and creating summary as it.
 files_df = pd.DataFrame.from_dict(file_dict, orient='index', columns=['File'])
 #files_df = pd.DataFrame.from_dict(file_dict, orient='index', columns=['File'])
